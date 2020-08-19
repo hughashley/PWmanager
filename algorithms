@@ -23,28 +23,29 @@ By: Hugh Ashley
 
 -Use pin to run salt hash algorithm 
 
--Provide user password in plaintext then self-destruct program 
 
 --------------------------------------------------------------------------
 #Salting Hash: 
 --------------------------------------------------------------------------
 
-Collect hashed password after stored in database 
+-Collect hashed password after stored in database 
 
-Collect user entered pin from show button 
+-Collect user entered pin from show button 
 
-Salt hashed password using hashed pin 
+-Salt hashed password using hashed pin 
 
-Run number of hashes as numeric value of pin 
+-Run number of hashes as numeric value of pin 
 
 -------------------------------------------------------------------------
 #Recalling Password: 
 -------------------------------------------------------------------------
 
-Prompt User for account to show password for 
+-Prompt User for account to show password for 
 
-Prompt user for pin 
+-Prompt user for pin 
 
-Call required unsalted hash from database 
+-Call required unsalted hash from database 
 
-Search database for matching hash and display corresponding password to user 
+-Search database for matching hash and display corresponding password to user 
+
+-Provide user password in plaintext then self-destruct program 
