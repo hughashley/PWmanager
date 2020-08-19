@@ -3,8 +3,8 @@
 
 #Password Manager/Vault
 
-#Project Lead/Algorithms by Hugh Ashley
-#Release Manager/login flow by Eric Lawrence
+#Algorithms by Hugh Ashley
+#login flow by Eric Lawrence
 #Tkinter GUI by Paul Cink
 
 from tkinter import *
