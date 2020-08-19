@@ -54,7 +54,8 @@ conn.close()
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #----------------Login/Register screen----------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-
+#Function to create root screen and populate it with login and register
+#buttons upon application startup
 def mainAccountScreen():
     global mainScreen
     mainScreen = Toplevel(root)
@@ -68,7 +69,7 @@ def mainAccountScreen():
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #-----------------------Home Screen-------------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-
+#function to display home menu buttons after login
 def buttons():
         user = activeUser
         Label(root, text="User: ", fg="green", font=("calibri", 11)).pack()
@@ -87,7 +88,7 @@ def buttons():
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #---------------------Login Process------------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-#login Screen
+#function to create login Screen and get entry from user
 def login():
 
 
@@ -120,43 +121,41 @@ def login():
 
 #Verify Login
 def login_verify():
-    #Database
-    conn = sqlite3.connect('password_vault.db')
-    #Create cursor
-    c = conn.cursor()
-
-
-
 
     if len(username_verify.get()) != 0:
         username1 = username_verify.get()
-    #elif len(password_verify.get()) != 0:
         password0 = password_verify.get()
     else:
         flag()
         
+        
+    #Database
+    conn = sqlite3.connect('password_vault.db')
+    #Create cursor
+    c = conn.cursor()    
     password1 = hashlib.sha224(str(password0).encode('utf-8')).hexdigest()
     
     username_login_entry.delete(0, END)
     password_login_entry.delete(0, END)
     
+    #Pull password hash from database
     validate = c.execute('SELECT password FROM login WHERE username = ?;', (username1,)).fetchone()
     check = validate [0]          
     #print(check)
     #print(password1)
 
 
-                   
+    #compare using secrets method for security               
     if (secrets.compare_digest(check, password1) is True):
             setActiveUser(username1)
             login_success()
-            
     else:
         flag()
 
 
     #Close Connection
     conn.close()    
+    
 #Notify user of login and passwords that need attention, display for 5 seconds
 def login_success():
     global login_success_screen
@@ -259,6 +258,7 @@ def flag():
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #------------------------Active User--------------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
+#set active user flag for db pulls and home screen
 def setActiveUser(active_user):
     #Database
     conn = sqlite3.connect('password_vault.db')
@@ -314,7 +314,7 @@ def saveacct(pin):
     
     #Insert Into Table
 
-        #Database
+    #Database
     conn = sqlite3.connect('password_vault.db')
     #Create cursor
     c = conn.cursor()
@@ -341,6 +341,7 @@ def saveacct(pin):
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #----------------------Pin Handling------------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
+#Get pin from user and pass to hash algorithm
 def setPin():
     global setPinScreen
     setPinScreen = Toplevel(root)
@@ -366,7 +367,7 @@ def setPin():
     
     Button(setPinScreen, text = "Submit", command = checkPin ).pack()
 
-        
+#compare pins to make sure they match        
 def checkPin():
     #hash pins for secure compare
     p1=setPin1.get()
@@ -383,7 +384,7 @@ def checkPin():
          Label(setPinScreen, text="Invalid Pin Entry").pack()
 
  
-
+#prompt user for pin
 def getPin(accountName):
     accountScreen.destroy()
     global getPinScreen
@@ -400,7 +401,7 @@ def getPin(accountName):
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #------------------------Pin Errors---------------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-
+#flag pins as not matching
 def pinFlag():
     global pinFlag
     pinFlag = Toplevel(root)
@@ -412,7 +413,7 @@ def pinFlag():
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #-----------------------Show Password----------------------#
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-    
+#dynamically display buttons   
 def show():
 
     #Database
@@ -435,7 +436,7 @@ def show():
     conn.commit()
     #Close Connection
     conn.close()
-
+#Hash user input to derrive key for passwords
 def getPass(acct):
     userPin1 =str(getPin.get())
     getPinScreen.destroy()
@@ -480,7 +481,8 @@ def getPass(acct):
     #print("password: ", passout)
     
     showpass(passout, account)
-
+    
+#display password to user in hilightable and copyable self destruct message
 def showpass(passw, acct):
     global outPut
     outPut = Toplevel(root)
