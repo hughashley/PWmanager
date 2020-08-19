@@ -1,0 +1,50 @@
+Vault Algorithms 
+
+By: Hugh Ashley 
+
+ 
+
+ 
+---------------------------------------------------------------------------
+#Save acct: 
+---------------------------------------------------------------------------
+
+-User enters password and the account it goes to (by name like Netflix or the name of their bank.  No account name should be stored for security reasons. 
+
+-Password is hashed one time and stored next to account in database with the username of whomever is logged in, then salted with the hash of the pin and subsequently stored in the rainbow database. 
+
+---------------------------------------------------------------------------
+#Recall acct: 
+---------------------------------------------------------------------------
+
+-Show logged in user available accounts to recall password for 
+
+-Upon selection, prompt user for pin 
+
+-Use pin to run salt hash algorithm 
+
+-Provide user password in plaintext then self-destruct program 
+
+--------------------------------------------------------------------------
+#Salting Hash: 
+--------------------------------------------------------------------------
+
+Collect hashed password after stored in database 
+
+Collect user entered pin from show button 
+
+Salt hashed password using hashed pin 
+
+Run number of hashes as numeric value of pin 
+
+-------------------------------------------------------------------------
+#Recalling Password: 
+-------------------------------------------------------------------------
+
+Prompt User for account to show password for 
+
+Prompt user for pin 
+
+Call required unsalted hash from database 
+
+Search database for matching hash and display corresponding password to user 
