@@ -1,7 +1,6 @@
 # COM430 software engineering term project.
 # contains several known bugs:
-  -upon first startup, database is created.  The first password recorded to the database is not recallable.
-  
+ 
   -if a pin is incorrectly entered to recall the application must be completely closed to attempt to recall again
   
   -numeric zero pin will not work
