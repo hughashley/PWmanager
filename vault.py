@@ -1,16 +1,10 @@
-#Saint Leo University Summer 2 2020
-#COM-430 Software Engineering
-
-#Password Manager/Vault
-
-#Algorithms by Hugh Ashley
-#login flow by Eric Lawrence
-#Tkinter GUI by Paul Cink
+#V2.xx source code, this project began as a term project for a Software Engineering class. V2.xx will move from a procedure based application to an object oriented approach.  This change in programming will address several of the known bugs and enable the program to be distributed via pipy
 
 from tkinter import *
 from tkinter import messagebox
 #from PIL import ImageTK,Image
 import sqlite3
+import dbinit
 import os
 import hashlib
 import datetime
@@ -20,36 +14,7 @@ from hashlib import sha256
 root = Tk()
 
     
-#&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-#-----------------------Initilize-DB------------------------#
-#&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
-#Database
-conn = sqlite3.connect('password_vault.db')
-#Create cursor
-c = conn.cursor()
 
-#Create Tables if necessary
-
-(c.execute("""CREATE TABLE IF NOT EXISTS vault (
-id integer primary key,
-username text,
-account text,
-hashval text,
-updated date,
-FOREIGN KEY(username) REFERENCES login(username)
-)"""))
-(c.execute("""CREATE TABLE IF NOT EXISTS login (
-username text primary key,
-password text
-)"""))
-(c.execute("""CREATE TABLE IF NOT EXISTS rainbow (
-saltyHash text primary key,
-password text
-)"""))
-#commit changes
-conn.commit()
-#close db
-conn.close()
 
 #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&#
 #----------------Login/Register screen----------------------#
